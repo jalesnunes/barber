@@ -44,7 +44,7 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex flex-col items-center justify-center px-5 border-l-2 border-solid px-5">
+            <div className="flex flex-col items-center justify-center border-l-2 border-solid px-5">
               <p className="text-sm">August</p>
               <p className="text-2xl">07</p>
               <p className="text-sm">9:45pm</p>
