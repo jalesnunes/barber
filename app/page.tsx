@@ -31,6 +31,8 @@ export default function Home() {
           />
         </div>
 
+        <h3 className="text-bold mt-6 text-xs text-gray-400">SCHEDULED</h3>
+
         <Card className="mt-6">
           <CardContent className="flex justify-between p-0">
             <div className="flex flex-col gap-2 py-5 pl-5">
