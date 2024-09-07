@@ -6,8 +6,14 @@ import Image from "next/image"
 import { Card, CardContent } from "./_components/ui/card"
 import { Badge } from "./_components/ui/badge"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
+import { db } from "./_lib/prisma"
+import RecommendationCard from "./_components/recommendationCard"
 
-export default function Home() {
+ const Home = async () => {
+  const babershops  = await db.barbershop.findMany({})
+
+  console.log({babershops})
+
   return (
     <div>
       <Header />
@@ -53,7 +59,13 @@ export default function Home() {
             </div>
           </CardContent>
         </Card>
+
+        <h3 className="text-bold mt-6 text-xs text-gray-400">RECOMENDATIONS</h3>
+
+        {babershops.map(babershop => <RecommendationCard key={babershop.id} babershop={babershop} />)}
       </div>
     </div>
   )
 }
+
+export default Home
