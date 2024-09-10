@@ -61,8 +61,9 @@ import RecommendationCard from "./_components/recommendationCard"
         </Card>
 
         <h3 className="text-bold mt-6 text-xs text-gray-400">RECOMENDATIONS</h3>
-
-        {babershops.map(babershop => <RecommendationCard key={babershop.id} babershop={babershop} />)}
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden mt-2">
+          {babershops.map(babershop => <RecommendationCard key={babershop.id} barbershop={babershop} />)}
+        </div>
       </div>
     </div>
   )
