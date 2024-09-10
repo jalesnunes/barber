@@ -7,12 +7,19 @@ import { Card, CardContent } from "./_components/ui/card"
 import { Badge } from "./_components/ui/badge"
 import { Avatar, AvatarImage } from "./_components/ui/avatar"
 import { db } from "./_lib/prisma"
-import RecommendationCard from "./_components/recommendationCard"
+import BarbershopCard from "./_components/barbershopCard"
+import Footer from "./_components/footer"
+import hairImg from "../public/hair.svg"
+import beardImg from "../public/beard.svg"
+import finishImg from "../public/finish.svg"
 
- const Home = async () => {
-  const babershops  = await db.barbershop.findMany({})
-
-  console.log({babershops})
+const Home = async () => {
+  const babershops = await db.barbershop.findMany({})
+  const popularBarbershops = await db.barbershop.findMany({
+    orderBy: {
+      name: "desc",
+    },
+  })
 
   return (
     <div>
@@ -22,9 +29,36 @@ import RecommendationCard from "./_components/recommendationCard"
         <p>Friday, August 8</p>
 
         <div className="mt-6 flex items-center gap-2">
-          <Input placeholder="Search" />
+          <Input placeholder="Search" className="" />
           <Button>
             <SearchIcon />
+          </Button>
+        </div>
+
+        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          <Button className="flex gap-3" variant="secondary">
+            <Image src={hairImg} alt="bair" width={16} height={16}/>
+            Hair
+          </Button>
+
+          <Button className="flex gap-3" variant="secondary">
+            <Image src={beardImg} alt="beard" width={16} height={16}/>
+            Beard
+          </Button>
+
+          <Button className="flex gap-3" variant="secondary">
+            <Image src={finishImg} alt="finish" width={16} height={16}/>
+            Finish
+          </Button>
+
+          <Button className="flex gap-3" variant="secondary">
+            <Image src={finishImg} alt="finish" width={16} height={16}/>
+            Finish
+          </Button>
+
+          <Button className="flex gap-3" variant="secondary">
+            <Image src={finishImg} alt="finish" width={16} height={16}/>
+            Finish
           </Button>
         </div>
 
@@ -61,10 +95,21 @@ import RecommendationCard from "./_components/recommendationCard"
         </Card>
 
         <h3 className="text-bold mt-6 text-xs text-gray-400">RECOMENDATIONS</h3>
-        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden mt-2">
-          {babershops.map(babershop => <RecommendationCard key={babershop.id} barbershop={babershop} />)}
+        <div className="mt-6 flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {babershops.map((babershop) => (
+            <BarbershopCard key={babershop.id} barbershop={babershop} />
+          ))}
+        </div>
+
+        <h3 className="text-bold mt-6 text-xs text-gray-400">POPULAR</h3>
+        <div className="mt-6 flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularBarbershops.map((babershop) => (
+            <BarbershopCard key={babershop.id} barbershop={babershop} />
+          ))}
         </div>
       </div>
+
+      <Footer />
     </div>
   )
 }
