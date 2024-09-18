@@ -5,10 +5,8 @@ import { Input } from "./_components/ui/input"
 import Image from "next/image"
 import { db } from "./_lib/prisma"
 import BarbershopCard from "./_components/barbershopCard"
-import Footer from "./_components/footer"
 import { quickSearchOptions } from "./_constants/search"
 import BookinItem from "./_components/bookingItem"
-
 
 const Home = async () => {
   const babershops = await db.barbershop.findMany({})
@@ -34,8 +32,17 @@ const Home = async () => {
 
         <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {quickSearchOptions.map((option) => (
-            <Button className="flex gap-3" variant="secondary" key={option.title}>
-              <Image src={option.imgUrl} alt={option.title} width={16} height={16} />
+            <Button
+              className="flex gap-3"
+              variant="secondary"
+              key={option.title}
+            >
+              <Image
+                src={option.imgUrl}
+                alt={option.title}
+                width={16}
+                height={16}
+              />
               {option.title}
             </Button>
           ))}
@@ -50,7 +57,7 @@ const Home = async () => {
           />
         </div>
 
-       <BookinItem />
+        <BookinItem />
 
         <h3 className="text-bold mt-6 text-xs text-gray-400">RECOMENDATIONS</h3>
         <div className="mt-6 flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
@@ -66,8 +73,6 @@ const Home = async () => {
           ))}
         </div>
       </div>
-
-      <Footer />
     </div>
   )
 }

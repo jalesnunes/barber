@@ -1,4 +1,3 @@
-import Footer from "@/app/_components/footer"
 import PhoneItem from "@/app/_components/phoneItem"
 import ServiceItemCard from "@/app/_components/serviceItemCard"
 import { Button } from "@/app/_components/ui/button"
@@ -20,15 +19,13 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
     },
     include: {
       services: true,
-    //   reviews: true,
+      //   reviews: true,
     },
   })
 
   if (!barbershop) {
     return notFound()
   }
-
- 
 
   return (
     <div>
@@ -60,38 +57,38 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         </Button>
       </div>
 
-      <div className="p-5 border-b border-solid">
-        <h1 className="font-bold text-xl mb-3">{barbershop?.name}</h1>
-        <div className="flex itens-center gap-2 mb-2">
-            <MapPinIcon className="text-primary" size={18}/>
-            <p className="text-sm">{barbershop?.address}</p>
+      <div className="border-b border-solid p-5">
+        <h1 className="mb-3 text-xl font-bold">{barbershop?.name}</h1>
+        <div className="itens-center mb-2 flex gap-2">
+          <MapPinIcon className="text-primary" size={18} />
+          <p className="text-sm">{barbershop?.address}</p>
         </div>
 
-        <div className="flex itens-center gap-2">
-            <StarIcon className="text-primary fill-primary" size={18}/>
-            <p className="text-sm">5.0 (833 evaluations)</p>
+        <div className="itens-center flex gap-2">
+          <StarIcon className="fill-primary text-primary" size={18} />
+          <p className="text-sm">5.0 (833 evaluations)</p>
         </div>
-      </div>  
-      
-      <div className="p-5 border-b border-solid space-y-2" >
-        <h2 className="font-bold text-gray-400 tet-xs">ABOUT US</h2>
-        <p className="text-sm text-justify">{barbershop?.description}</p>
       </div>
 
-      <div className="p-5 border-b border-solid" >
-         <h2 className="font-bold text-gray-400 tet-xs mb-3">SERVICES</h2>
-         <div className="space-y-3">
-            {barbershop.services.map(service => <ServiceItemCard key={service.id} service={service} />)}
-         </div>
+      <div className="space-y-2 border-b border-solid p-5">
+        <h2 className="tet-xs font-bold text-gray-400">ABOUT US</h2>
+        <p className="text-justify text-sm">{barbershop?.description}</p>
       </div>
 
-      <div className="p-5 space-y-3">
-            {barbershop.phones.map( (phone)=> (
-                <PhoneItem key={phone} phone={phone} />
-            ))}
+      <div className="border-b border-solid p-5">
+        <h2 className="tet-xs mb-3 font-bold text-gray-400">SERVICES</h2>
+        <div className="space-y-3">
+          {barbershop.services.map((service) => (
+            <ServiceItemCard key={service.id} service={service} />
+          ))}
+        </div>
       </div>
 
-      <Footer />
+      <div className="space-y-3 p-5">
+        {barbershop.phones.map((phone) => (
+          <PhoneItem key={phone} phone={phone} />
+        ))}
+      </div>
     </div>
   )
 }
