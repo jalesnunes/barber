@@ -12,7 +12,15 @@ interface BarbershopPageProps {
   params: Barbershop
 }
 
+/**
+ * This is the main page component for displaying a barbershop's details.
+ * It fetches the barbershop data from the database and renders its information.
+ *
+ * @param params - An object containing the barbershop's unique identifier.
+ * @returns A React component that displays the barbershop's details.
+ */
 const BarbershopPage = async ({ params }: BarbershopPageProps) => {
+  // Fetch the barbershop data from the database, including its services.
   const barbershop = await db.barbershop.findUnique({
     where: {
       id: params.id,
@@ -23,12 +31,15 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
     },
   })
 
+  // If the barbershop data is not found, redirect to the 404 page.
   if (!barbershop) {
     return notFound()
   }
 
+  // Render the barbershop details.
   return (
     <div>
+      {/* Render the barbershop's cover image */}
       <div className="relative h-[250px] w-full">
         <Image
           alt={barbershop?.name}
@@ -37,6 +48,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
           className="object-cover"
         />
 
+        {/* Render the back button */}
         <Button
           size="icon"
           variant="secondary"
@@ -48,6 +60,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
           </Link>
         </Button>
 
+        {/* Render the menu button */}
         <Button
           size="icon"
           variant="secondary"
@@ -57,6 +70,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         </Button>
       </div>
 
+      {/* Render the barbershop's name, address, and rating */}
       <div className="border-b border-solid p-5">
         <h1 className="mb-3 text-xl font-bold">{barbershop?.name}</h1>
         <div className="itens-center mb-2 flex gap-2">
@@ -70,11 +84,13 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         </div>
       </div>
 
+      {/* Render the barbershop's description */}
       <div className="space-y-2 border-b border-solid p-5">
         <h2 className="tet-xs font-bold text-gray-400">ABOUT US</h2>
         <p className="text-justify text-sm">{barbershop?.description}</p>
       </div>
 
+      {/* Render the barbershop's services */}
       <div className="border-b border-solid p-5">
         <h2 className="tet-xs mb-3 font-bold text-gray-400">SERVICES</h2>
         <div className="space-y-3">
@@ -84,6 +100,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         </div>
       </div>
 
+      {/* Render the barbershop's phone numbers */}
       <div className="space-y-3 p-5">
         {barbershop.phones.map((phone) => (
           <PhoneItem key={phone} phone={phone} />

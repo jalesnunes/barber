@@ -10,6 +10,12 @@ import {
   SheetTrigger,
 } from "./ui/sheet"
 
+/**
+ * This function represents the header component of a Next.js application.
+ * It displays a logo image and a menu button that opens a sheet component.
+ *
+ * @returns {JSX.Element} - A JSX element representing the header component.
+ */
 export default function Header() {
   return (
     <Card>

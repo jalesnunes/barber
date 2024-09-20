@@ -7,6 +7,12 @@ interface ServiceItemCardProps {
   service: BarbershopService
 }
 
+/**
+ * A functional component that renders a card displaying details about a barbershop service.
+ *
+ * @param service - The service object containing information about the barbershop service.
+ * @returns A JSX element representing the service item card.
+ */
 const ServiceItemCard = ({ service }: ServiceItemCardProps) => {
   return (
     <Card>

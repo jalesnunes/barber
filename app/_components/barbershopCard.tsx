@@ -10,6 +10,12 @@ interface BarbershopItensProps {
   barbershop: Barbershop
 }
 
+/**
+ * A functional component that renders a card for a barbershop.
+ *
+ * @param barbershop - The barbershop data to be displayed in the card.
+ * @returns A React element representing the barbershop card.
+ */
 const BarbershopCard = ({ barbershop }: BarbershopItensProps) => {
   return (
     <Card className="min-w-[167px] rounded-2xl">

@@ -8,8 +8,18 @@ import BarbershopCard from "./_components/barbershopCard"
 import { quickSearchOptions } from "./_constants/search"
 import BookinItem from "./_components/bookingItem"
 
+/**
+ * The Home component is the main landing page of the application.
+ * It displays various sections such as search, quick search options,
+ * bookings, recommendations, and popular barbershops.
+ *
+ * @returns {JSX.Element} - The Home component.
+ */
 const Home = async () => {
+  // Fetch all barbershops from the database
   const babershops = await db.barbershop.findMany({})
+
+   // Fetch popular barbershops from the database, ordered by name in descending order
   const popularBarbershops = await db.barbershop.findMany({
     orderBy: {
       name: "desc",

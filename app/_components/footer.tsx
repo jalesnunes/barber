@@ -1,5 +1,10 @@
 import { Card, CardContent } from "./ui/card"
 
+/**
+ * A functional component that renders the footer section of a website.
+ *
+ * @returns {JSX.Element} - The JSX representation of the footer component.
+ */
 const Footer = () => {
   return (
     <footer>
