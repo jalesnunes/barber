@@ -65,7 +65,11 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
         {/* Render the menu button */}
         <Sheet>
           <SheetTrigger asChild>
-            <Button size="icon" variant="outline" className="absolute right-4 top-4">
+            <Button
+              size="icon"
+              variant="outline"
+              className="absolute right-4 top-4"
+            >
               <MenuIcon />
             </Button>
           </SheetTrigger>
