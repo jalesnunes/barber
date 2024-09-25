@@ -4,11 +4,9 @@ import { Button } from "./ui/button"
 import { MenuIcon } from "lucide-react"
 import {
   Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
   SheetTrigger,
 } from "./ui/sheet"
+import Sidebar from "./sidebar"
 
 /**
  * This function represents the header component of a Next.js application.
@@ -28,11 +26,7 @@ export default function Header() {
               <MenuIcon />
             </Button>
           </SheetTrigger>
-          <SheetContent>
-            <SheetHeader>
-              <SheetTitle className="flex items-center text-sm">Menu</SheetTitle>
-            </SheetHeader>
-          </SheetContent>
+          <Sidebar />
         </Sheet>
       </CardContent>
     </Card>
