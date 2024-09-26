@@ -17,12 +17,16 @@ import {
 } from "./ui/dialog"
 
 import googleIconImg from "../../public/googleIcon.svg"
-import { signIn, useSession } from "next-auth/react"
+import { signIn, signOut, useSession } from "next-auth/react"
 
 export default function Sidebar() {
   const { data } = useSession()
   const handleLoginWithGoogle = async () => {
     await signIn("google")
+  }
+
+  const handleLogoutGoogleAccount = async () => {
+    await signOut()
   }
   return (
     <SheetContent className="overflow-y-auto [&::-webkit-scrollbar]:hidden">
@@ -108,7 +112,7 @@ export default function Sidebar() {
       </div>
 
       <div className="flex flex-col gap-2 py-5">
-        <Button className="gap-2  justify-start" variant="ghost">
+        <Button className="gap-2  justify-start" variant="ghost" onClick={handleLogoutGoogleAccount}>
           <LogOutIcon size={18} />
           Log out
         </Button>
