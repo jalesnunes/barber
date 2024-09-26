@@ -1,3 +1,5 @@
+"use client"
+
 import Image from "next/image"
 import { Button } from "./ui/button"
 import { CalendarIcon, HomeIcon, LogInIcon, LogOutIcon } from "lucide-react"
@@ -15,8 +17,13 @@ import {
 } from "./ui/dialog"
 
 import googleIconImg from "../../public/googleIcon.svg"
+import { signIn, useSession } from "next-auth/react"
 
 export default function Sidebar() {
+  const { data } = useSession()
+  const handleLoginWithGoogle = async () => {
+    await signIn("google")
+  }
   return (
     <SheetContent className="overflow-y-auto [&::-webkit-scrollbar]:hidden">
       <SheetHeader>
@@ -24,7 +31,22 @@ export default function Sidebar() {
       </SheetHeader>
 
       <div className="flex items-center justify-between gap-3 border-b border-solid py-5">
-        <h2 className="font-bold">Hey, login</h2>
+        
+
+        {data?.user ? (
+          <div className="flex items-center gap-3">
+            <Avatar>
+              <AvatarImage src={data?.user?.image ?? ""} />
+            </Avatar>
+
+            <div >
+             <p className="font-bold">{data.user.name}</p>
+             <p className="text-xs">{data.user.email}</p>
+            </div>
+          </div>
+        ) : (
+          <>
+          <h2 className="font-bold">Hey, login</h2>
         <Dialog>
           <DialogTrigger asChild>
             <Button>
@@ -40,21 +62,15 @@ export default function Sidebar() {
               </DialogDescription>
             </DialogHeader>
 
-            <Button variant="outline" className="gap-2 font-bold">
+            <Button variant="outline" className="gap-2 font-bold" onClick={handleLoginWithGoogle}>
               <Image src={googleIconImg} alt="sign in with google" width={18} height={18}/>
               Google
             </Button>
           </DialogContent>
         </Dialog>
-
-        {/* <Avatar>
-          <AvatarImage src="https://avatar.iran.liara.run/public/20" />
-        </Avatar>
-
-        <div>
-          <p className="font-bold">Jales Nunes</p>
-          <p className="text-xs">jales@jales.com</p>
-        </div> */}
+          </>
+        )}
+       
       </div>
 
       <div className="flex flex-col gap-2 border-b border-solid py-5">
