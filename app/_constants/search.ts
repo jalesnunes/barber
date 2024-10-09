@@ -12,9 +12,9 @@ interface QuickSearchOption {
 
 export const quickSearchOptions: QuickSearchOption[] = [
   { imgUrl: hairImg, title: "Hair",},
-  { imgUrl: beardImg, title: "Beard" },
+  { imgUrl: beardImg, title: "Barba" },
   { imgUrl: finishImg, title: "Finish" },
-  { imgUrl: eyebrowImg, title: "Eyebrow" },
+  { imgUrl: eyebrowImg, title: "Sobrancelha" },
   { imgUrl: massageImg, title: "Massage" },
   { imgUrl: hydrationImg, title: "Hydration" },
 ]

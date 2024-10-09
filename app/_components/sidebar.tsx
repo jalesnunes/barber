@@ -95,19 +95,25 @@ export default function Sidebar() {
 
       <div className="flex flex-col gap-2 border-b border-solid py-5">
         {quickSearchOptions.map((option) => (
-          <Button
-            key={option.title}
+          <SheetClose key={option.title} asChild>
+              <Button
+            
             className="justify-start gap-2"
             variant="ghost"
+            asChild
           >
-            <Image
-              src={option.imgUrl}
-              height={18}
-              width={18}
-              alt={option.title}
-            />
+            <Link href={`/barbershops?service=${option.title}`}>
+              <Image
+                src={option.imgUrl}
+                height={18}
+                width={18}
+                alt={option.title}
+              />
             {option.title}
+            </Link>
           </Button>
+          </SheetClose>
+          
         ))}
       </div>
 

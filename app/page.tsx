@@ -6,6 +6,7 @@ import BarbershopCard from "./_components/barbershopCard"
 import { quickSearchOptions } from "./_constants/search"
 import BookinItem from "./_components/bookingItem"
 import SearchBar from "./_components/searchBar"
+import Link from "next/link"
 
 /**
  * The Home component is the main landing page of the application.
@@ -42,14 +43,17 @@ const Home = async () => {
               className="flex gap-3"
               variant="secondary"
               key={option.title}
+              asChild
             >
-              <Image
-                src={option.imgUrl}
-                alt={option.title}
-                width={16}
-                height={16}
-              />
-              {option.title}
+              <Link href={`/barbershops?service=${option.title}`}> 
+                <Image
+                  src={option.imgUrl}
+                  alt={option.title}
+                  width={16}
+                  height={16}
+                />
+                {option.title}
+              </Link>
             </Button>
           ))}
         </div>
