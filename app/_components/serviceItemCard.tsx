@@ -37,6 +37,8 @@ const ServiceItemCard = ({ service }: ServiceItemCardProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [selectedTime, setSelectedTime] = useState<string | undefined>(undefined)
 
+  const price = JSON.parse(JSON.stringify(service.price))
+
   const handleSeletedDate = (date: Date | undefined) => {
     setSelectedDate(date)
   }
@@ -66,7 +68,7 @@ const ServiceItemCard = ({ service }: ServiceItemCardProps) => {
                 style: "currency",
                 currency: "USD",
                 minimumFractionDigits: 2,
-              }).format(Number(service.price))}
+              }).format(price)}
             </p>
 
             <Sheet>

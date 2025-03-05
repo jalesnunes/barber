@@ -4,13 +4,14 @@ import SearchBar from "../_components/searchBar"
 import { db } from "../_lib/prisma"
 
 interface BarbershopsPageProps {
-  searchParams: {
+  searchParams: Promise<{
     title?: string
     service?: string
-  }
+  }>
 }
 
-const BarbershopsPage = async ({ searchParams }: BarbershopsPageProps) => {
+const BarbershopsPage = async (props: BarbershopsPageProps) => {
+  const searchParams = await props.searchParams;
   const barbershops = await db.barbershop.findMany({
     where: {
       OR: [

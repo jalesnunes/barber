@@ -4,14 +4,19 @@ import Sidebar from "@/app/_components/sidebar"
 import { Button } from "@/app/_components/ui/button"
 import { Sheet, SheetTrigger } from "@/app/_components/ui/sheet"
 import { db } from "@/app/_lib/prisma"
-import { Barbershop } from "@prisma/client"
+import { Barbershop, BarbershopService } from "@prisma/client"
 import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
 interface BarbershopPageProps {
-  params: Barbershop
+  params: Promise<Barbershop>
+}
+
+interface BarbershopWithServices extends Barbershop {
+  services: BarbershopService[];
+  phones: string[];
 }
 
 /**
@@ -21,7 +26,8 @@ interface BarbershopPageProps {
  * @param params - An object containing the barbershop's unique identifier.
  * @returns A React component that displays the barbershop's details.
  */
-const BarbershopPage = async ({ params }: BarbershopPageProps) => {
+const BarbershopPage = async (props: BarbershopPageProps) => {
+  const params = await props.params;
   // Fetch the barbershop data from the database, including its services.
   const barbershop = await db.barbershop.findUnique({
     where: {
@@ -38,14 +44,18 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
     return notFound()
   }
 
+  // console.log(barbershop)
+
+  const data: BarbershopWithServices = JSON.parse(JSON.stringify(barbershop))
+
   // Render the barbershop details.
   return (
     <div>
       {/* Render the barbershop's cover image */}
       <div className="relative h-[250px] w-full">
         <Image
-          alt={barbershop?.name}
-          src={barbershop?.imageUrl}
+          alt={data?.name}
+          src={data?.imageUrl}
           fill
           className="object-cover"
         />
@@ -79,10 +89,10 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
 
       {/* Render the barbershop's name, address, and rating */}
       <div className="border-b border-solid p-5">
-        <h1 className="mb-3 text-xl font-bold">{barbershop?.name}</h1>
+        <h1 className="mb-3 text-xl font-bold">{data?.name}</h1>
         <div className="itens-center mb-2 flex gap-2">
           <MapPinIcon className="text-primary" size={18} />
-          <p className="text-sm">{barbershop?.address}</p>
+          <p className="text-sm">{data?.address}</p>
         </div>
 
         <div className="itens-center flex gap-2">
@@ -94,14 +104,14 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
       {/* Render the barbershop's description */}
       <div className="space-y-2 border-b border-solid p-5">
         <h2 className="tet-xs font-bold text-gray-400">ABOUT US</h2>
-        <p className="text-justify text-sm">{barbershop?.description}</p>
+        <p className="text-justify text-sm">{data?.description}</p>
       </div>
 
       {/* Render the barbershop's services */}
       <div className="border-b border-solid p-5">
         <h2 className="tet-xs mb-3 font-bold text-gray-400">SERVICES</h2>
         <div className="space-y-3">
-          {barbershop.services.map((service) => (
+          {data.services.map((service) => (
             <ServiceItemCard key={service.id} service={service} />
           ))}
         </div>
@@ -109,7 +119,7 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
 
       {/* Render the barbershop's phone numbers */}
       <div className="space-y-3 p-5">
-        {barbershop.phones.map((phone) => (
+        {data.phones.map((phone) => (
           <PhoneItem key={phone} phone={phone} />
         ))}
       </div>
